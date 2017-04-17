@@ -9,13 +9,19 @@ define(function(){
 
                                 // ajax请求部分
                 var opt = {
-                        url: 'http://api.jirengu.com/fm/getSong.php',
+                        url: 'http://api.jirengu.com/fm/getSong.php?callback=play',
                         type: 'get',
                         data: {},
                         success: function(ret){
-                            var retObj = JSON.parse(ret)
-                            loadMusic(retObj)
-                            render(retObj)
+                            var first = ret.indexOf('('),
+                                last = ret.indexOf(')');
+                            var retObj = ret.slice(first+1,last)
+                            //console.log(retObj)
+                             obj = JSON.parse(retObj)
+                             //console.log(obj.song[0].title)
+                            //var obj = JSON.parse(retObj)
+                            loadMusic(obj)
+                            render(obj)
                         },
                         error: function(){
                             console.log("error")
@@ -27,7 +33,7 @@ define(function(){
                 function ajax(opts){
                     var xhr = new XMLHttpRequest();
                     if(opts.type === 'get'){
-                        xhr.open('get',opts.url+'?'+'timg='+new Date().getTime());// 无用参数，为了兼容ie，IE有个缓存机制，对请求的url进行判断，发现短时间内请求的url相同，则使用缓存的数据，而不是去重新向服务器获取一次数据。
+                        xhr.open('get',opts.url+'&'+'timg='+new Date().getTime());// 无用参数，为了兼容ie，IE有个缓存机制，对请求的url进行判断，发现短时间内请求的url相同，则使用缓存的数据，而不是去重新向服务器获取一次数据。
                         xhr.send();
                     }else if(opts.type === 'post'){
                         xhr.open('post',opts.url);

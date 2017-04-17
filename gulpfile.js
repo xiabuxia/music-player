@@ -8,13 +8,7 @@ var gulp = require('gulp'),
     livereload = require('gulp-livereload'); // 当监听文件发生变化时，浏览器自动刷新页面
     
 
-    gulp.task('default', function() {
-        gulp.src('./src/js/*.js')
-            .pipe(concat('main.js'))
-            .pipe(uglify())
-            .pipe(gulp.dest('build'))
-            
-});
+
 
 gulp.task('scripts', function () {
     return gulp.src('src/js/main.js')
