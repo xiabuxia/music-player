@@ -1,0 +1,77 @@
+/* Welcome to Compass. Use this file to define print styles.
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" /> */
+
+ @mixin size($width,$height){
+     width: $width;
+     height: $height;
+ }
+@mixin position($left,$top,$sty) {
+    position: $sty;
+    left: $left;
+    top: $top;
+ }
+ %shadow {
+  background-image: url("images/bg.png");
+  position: absolute;
+  left: 40px;
+  top: 162px;
+  width: 720px;
+  height: 277px;
+  z-index: 8;
+}
+
+
+body {
+  background: #eee;
+}
+div,span {
+  padding: 0;
+  margin: 0;
+}
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#pannel {
+  @include size(382px,98px);
+  border-style: solid;
+  border-width: 2px;
+  border-color: rgb( 255, 255, 255 );
+  border-radius: 20px;
+  background-image: -moz-linear-gradient( 0deg, rgb(193,184,179) 0%, rgb(237,238,238) 100%);
+  background-image: -webkit-linear-gradient( 0deg, rgb(193,184,179) 0%, rgb(237,238,238) 100%);
+  background-image: -ms-linear-gradient( 0deg, rgb(193,184,179) 0%, rgb(237,238,238) 100%);
+  box-shadow: 1px 12px 29px -7px rgba(0, 0, 0, 0.5);
+
+}
+#drag {
+  @include size(380px,10px);
+}
+#song {
+  @include size(185px,50px);
+  @include position(145px,10px,absolute);
+  overflow: hidden;
+  cursor: default;
+}
+#song li {
+  display: block;
+  white-space: nowrap;
+}
+#information-ct {
+  @include position(0px,0px,absolute);
+}
+
+#author {
+  font-size: 12px;
+  margin-top: 8px;
+  margin-left: 10px;
+}
+.play-pre-ct {
+  display:inline-block;
+}
+.play-next-ct {
+  display: inline-block;
+}

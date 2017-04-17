@@ -1,0 +1,81 @@
+/* Welcome to Compass. Use this file to define print styles.
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" /> */
+/* line 25, ../sass/print.scss */
+body {
+  background: #eee;
+}
+
+/* line 28, ../sass/print.scss */
+div, span {
+  padding: 0;
+  margin: 0;
+}
+
+/* line 32, ../sass/print.scss */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* line 38, ../sass/print.scss */
+#pannel {
+  width: 382px;
+  height: 98px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: white;
+  border-radius: 20px;
+  background-image: -moz-linear-gradient(0deg, #c1b8b3 0%, #edeeee 100%);
+  background-image: -webkit-linear-gradient(0deg, #c1b8b3 0%, #edeeee 100%);
+  background-image: -ms-linear-gradient(0deg, #c1b8b3 0%, #edeeee 100%);
+  box-shadow: 1px 12px 29px -7px rgba(0, 0, 0, 0.5);
+}
+
+/* line 50, ../sass/print.scss */
+#drag {
+  width: 380px;
+  height: 10px;
+}
+
+/* line 53, ../sass/print.scss */
+#song {
+  width: 185px;
+  height: 50px;
+  position: absolute;
+  left: 145px;
+  top: 10px;
+  overflow: hidden;
+  cursor: default;
+}
+
+/* line 59, ../sass/print.scss */
+#song li {
+  display: block;
+  white-space: nowrap;
+}
+
+/* line 63, ../sass/print.scss */
+#information-ct {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+/* line 67, ../sass/print.scss */
+#author {
+  font-size: 12px;
+  margin-top: 8px;
+  margin-left: 10px;
+}
+
+/* line 72, ../sass/print.scss */
+.play-pre-ct {
+  display: inline-block;
+}
+
+/* line 75, ../sass/print.scss */
+.play-next-ct {
+  display: inline-block;
+}

@@ -1,0 +1,90 @@
+/* Welcome to Compass. Use this file to write IE specific override styles.
+ * Import this file using the following HTML or equivalent:
+ * <!--[if IE]>
+ *   <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+ * <![endif]--> */
+ @mixin size($width,$height){
+     width: $width;
+     height: $height;
+ }
+ @mixin triangle($size,$style,$color){
+     border-left:$size $style $color;
+     border-right: $size $style $color;
+     border-top: $size $style $color;
+     border-bottom: $size $style $color;
+ }
+ @mixin position($left,$top,$sty) {
+    position: $sty;
+    left: $left;
+    top: $top;
+ }
+ %play{
+     @include size(0,0);
+     @include triangle(10px,solid,transparent);
+     display: inline-block;
+ }
+
+
+$color: #000;
+
+
+
+/*一些图形布局*/
+.ct {
+    @include position(20px,50px,relative);
+}
+
+#play-next {
+    @extend %play;
+    border-left-color: $color; 
+    cursor: pointer;
+
+}
+
+
+#play-pre {
+    @extend %play;
+    border-right-color: $color;
+    cursor: pointer;
+    
+}
+#play {
+    @include size(4px,18px);
+    display: inline-block;
+    border-left: 6px solid $color;
+    border-right: 6px solid $color;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 1px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+#play-ct{
+    @include position(-10px,-31px,absolute);
+    cursor: default;
+}
+#play-progress {
+    @include size(230px,3px);
+    background: $color;
+    display: block;
+    margin-top: 16px;
+    cursor: pointer;
+}
+#play-dot {
+    @include size(0px,3px);
+    @include position(0px,0px,absolute);
+    background:#ead8d8;
+    display: block;
+    cursor: pointer;
+}
+#current-time {
+    @include position(256px,21px,absolute);
+    font-size: 14px;
+    cursor: default;
+}
+.active {
+    @include size(17px,18px);
+    border: none;
+    background: #000;
+}

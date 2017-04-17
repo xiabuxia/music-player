@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="referrer" content="never">
+    <link rel="stylesheet" href="dist/css/all.css">
+
+    <title>Document</title>
+</head>
+<body>
+   
+    <div id="pannel">
+        <div id="drag"></div>
+        <div id="song">
+            <ul id="information-ct">
+                <li id="song-title"></li>
+                <li id="author"></li>
+            </ul>
+        </div>
+        <div class="ct">
+            <div id="play-ct" onselectstart="return false">
+                <span id="play-pre"></span>
+                <span id="play"></span>
+                <span id="play-next"></span>
+                <span id="current-time">0:00</span>
+            </div>
+            <span id="play-progress"></span>
+            <span id="play-dot"></span>
+        </div>
+    </div>
+
+  <script data-main="dist/js/main" src="src/js/require.js"></script>
+ 
+</body>
+</html>
