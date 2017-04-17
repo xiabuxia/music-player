@@ -69,13 +69,3 @@ ul {
   margin-top: 8px;
   margin-left: 10px;
 }
-
-/* line 72, ../sass/print.scss */
-.play-pre-ct {
-  display: inline-block;
-}
-
-/* line 75, ../sass/print.scss */
-.play-next-ct {
-  display: inline-block;
-}

@@ -84,11 +84,20 @@ define(function(){
 
                 //绑定事件开始
 
-                // 点击进度条，小黑点跟着动
+                // 点击进度条，白条覆盖
                 progressNode.onclick = function(e){
-                    percent = e.offsetX/parseInt(getComputedStyle(this).width)
+                    var evt = e,
+                    _this = this;
+                   clickMove(evt,_this)
+                }
+                playDotNode.onclick = function(e){
+                   var evt = e;
+                   clickMove(evt,progressNode)
+                }
+                function clickMove(e,node){
+                    percent = e.offsetX/parseInt(getComputedStyle(node).width);
                     music.currentTime = percent * music.duration;
-                    playDotNode.style.width = percent*100+"px";
+                    playDotNode.style.width = percent*100+'%';
                     updateProgress()
                 }
 
