@@ -150,7 +150,13 @@ define(function(){
                 // 把拿到歌曲的相关信息赋值到Audio对象里
                 function render(objs){
                     songTitle.innerText = objs.song[0].title;
-                    songAuthor.innerText = objs.song[0].artist;   
+                    songAuthor.innerText = objs.song[0].artist;
+                    noTitle()   
+                }
+                function noTitle(){
+                    if(songTitle.innerText === ''){
+                        songTitle.innerText = '音乐-学习的伙伴'
+                    }
                 }
 
 
