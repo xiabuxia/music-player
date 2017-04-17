@@ -6,7 +6,6 @@ define(function(){
     var player = {
         start: function(){
 
-
                                 // ajax请求部分
                 var opt = {
                         url: 'http://api.jirengu.com/fm/getSong.php?callback=play',
