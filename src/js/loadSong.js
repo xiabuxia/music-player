@@ -16,8 +16,8 @@ define(function(){
                                 last = ret.indexOf(')');
                             var retObj = ret.slice(first+1,last)
                             //console.log(retObj)
-                           //  obj = JSON.parse(retObj)
-                             console.log(obj.song[0])
+                            obj = JSON.parse(retObj)
+                             //console.log(obj.song[0])
                             //var obj = JSON.parse(retObj)
                             loadMusic(obj)
                             render(obj)
