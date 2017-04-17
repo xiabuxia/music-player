@@ -8,7 +8,7 @@ define(function(){
 
                                 // ajax请求部分
                 var opt = {
-                        url: 'http://api.jirengu.com/fm/getSong.php?callback=play',
+                        url: 'https://jirenguapi.applinzi.com/fm/getSong.php?callback=play',
                         type: 'get',
                         data: {},
                         success: function(ret){
