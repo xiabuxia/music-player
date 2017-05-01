@@ -88,3 +88,24 @@ $color: #000;
     border: none;
     background: #000;
 }
+#songLrc {
+    @include size(50px,20px);
+    @include position(323px,30px,absolute);
+    border-top: 1px solid transparent;
+    line-height: 20px;
+    cursor: pointer;
+}
+#songLrc span {
+    display: inline-block;
+    @include size(0px,0px);
+    margin-left: 10px;
+    display: inline-block;
+    border-left: 5px solid #000;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    
+    
+}
+.showLrc {
+  display: none;
+}

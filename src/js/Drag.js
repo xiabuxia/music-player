@@ -45,7 +45,9 @@ define(function(){
                             console.log(1)
                         }
                     }
-            
+                    document.querySelector('.ct').addEventListener('onmousedown',function(e){
+                        e.stopPropagation();
+                    })
 
                 },
                 getDistance: function(evt){

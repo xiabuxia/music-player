@@ -5,8 +5,7 @@ define(function(){
 
     var player = {
         start: function(){
-
-                                // ajax请求部分
+               // ajax部分
                 var opt = {
                         url: 'https://jirenguapi.applinzi.com/fm/getSong.php?callback=play',
                         type: 'get',
@@ -15,21 +14,23 @@ define(function(){
                             var first = ret.indexOf('('),
                                 last = ret.indexOf(')');
                             var retObj = ret.slice(first+1,last)
-                            //console.log(retObj)
-                            obj = JSON.parse(retObj)
-                             //console.log(obj.song[0])
-                            //var obj = JSON.parse(retObj)
+                            var obj = JSON.parse(retObj)
+                            var lrcID = obj.song[0].sid
                             loadMusic(obj)
                             render(obj)
+                            getLrc(lrcID)
                         },
                         error: function(){
                             console.log("error")
                         }
                     }
-
-                    ajax(opt)
-
+                    
+                    
+                   
+                /*ajax 获取歌曲信息 start*/
+                
                 function ajax(opts){
+                    
                     var xhr = new XMLHttpRequest();
                     if(opts.type === 'get'){
                         xhr.open('get',opts.url+'&'+'timg='+new Date().getTime());// 无用参数，为了兼容ie，IE有个缓存机制，对请求的url进行判断，发现短时间内请求的url相同，则使用缓存的数据，而不是去重新向服务器获取一次数据。
@@ -47,6 +48,61 @@ define(function(){
                     }
                         
                 }
+                /*ajax 获取歌曲信息 end*/
+
+                function getLrc(id){
+                 
+                    var xhrLrc = new XMLHttpRequest()
+                    xhrLrc.open('get','https://jirenguapi.applinzi.com/fm/getLyric.php'+'?'+'sid='+id);
+                    xhrLrc.send();
+                    xhrLrc.onreadystatechange = function(){
+                        if(xhrLrc.readyState === 4 && xhrLrc.status === 200){
+                           var obj = JSON.parse(xhrLrc.responseText)
+                            appendLrc(obj)
+                        }else if(xhrLrc.status === 404){
+                            console.log('404')
+                        }
+                    }
+                }
+//ajax部分 end
+                // 处理歌词
+                function appendLrc(obj){
+                   var lrc = obj.lyric
+                   var arr = lrc.split('[')
+                   
+                   var arr1 = [];
+                   for(var i=0;i<arr.length;i++){
+                       if(arr[i] !== ""){
+                            a = arr[i].split(']')
+                            arr1[i] = a[1]
+                       }
+                   }
+
+   
+                   var lrcNode = document.querySelector('.lrc')
+                   
+                   for(var i=1;i<arr1.length;i++){
+                       var node = document.createElement('p')
+                        node.innerHTML = arr1[i];
+                        lrcNode.appendChild(node)
+                   }
+                   justice(arr1)
+                           
+                }
+                // 判断歌词是否超出边界，超出则出现滚动条
+
+                function justice(arr){
+                    if(arr.length>11){
+                        lrcPannel.style.cssText = 'overflow-y: scroll'
+                    }else{
+                        lrcPannel.style.cssText = 'overflow-y: none'
+                    }
+                    
+                }
+
+                
+
+
                     
                 // 选择dom
                 var pannel = $('#pannel'),
@@ -60,12 +116,16 @@ define(function(){
                     timeNode = $('#current-time'),
                     playDotNode = $('#play-dot'),
                     progressNode = $('#play-progress'),
-                    progressNodeCt = $('.ct');
+                    progressNodeCt = $('.ct'),
+                    lrcNode = $('#songLrc'),
+                    lrcPannel = $('#lrc-ct');
                 var lock = true;
+                var flag = false; 
 
                 function $(node){
                     return document.querySelector(node)
                 }
+                
 
                 // 实例化Audio对象
                 var music = new Audio()
@@ -83,6 +143,30 @@ define(function(){
                 })
 
                 //绑定事件开始
+                // 点击显示歌词
+                lrcNode.onclick = function(e){
+                    e.stopPropagation();
+                    var spanNode = lrcNode.querySelector('span')
+         
+                    if(lrcPannel.classList[0] === 'showLrc'){
+                        lrcPannel.setAttribute('class',' ');
+                        $('#line-left').setAttribute('class','line')
+                        $('#line-right').setAttribute('class','line')
+                        spanNode.style.cssText = "border-left: 5px solid transparent;border-right: 5px solid transparent;border-top: 5px solid #000;position:relative;top:3px;"
+                    }else{
+                        lrcPannel.setAttribute('class','showLrc');
+                         $('#line-left').setAttribute('class','line showLrc')
+                         $('#line-right').setAttribute('class','line showLrc')
+                         spanNode.style.cssText = "border-left: 5px solid #000;border-right: 5px solid transparent;border-top: 5px solid transparent;position:relative;top:0px;"
+                    }
+                  
+                }
+
+
+
+                $('#songLrc').addEventListener('click',function(e){
+                    e.stopPropagation()
+                }) 
 
                 // 点击进度条，白条覆盖
                 progressNode.onclick = function(e){
@@ -94,6 +178,7 @@ define(function(){
                    var evt = e;
                    clickMove(evt,progressNode)
                 }
+
                 function clickMove(e,node){
                     percent = e.offsetX/parseInt(getComputedStyle(node).width);
                     music.currentTime = percent * music.duration;
@@ -101,15 +186,39 @@ define(function(){
                     updateProgress()
                 }
 
+                /*防重复点击*/
+                lockClick()
 
+                function lockClick(){
+
+                    songStop.className = '';
+                    var lrcNode = document.querySelector('.lrc');
+                    var titleCtNode = $('#information-ct');
+                    
+                    if(lrcNode.innerHTML!==''){
+                        lrcNode.innerHTML = '';
+
+                    }
+                    if(!flag){
+                        flag = true;
+                        ajax(opt)
+                        titleCtNode.style.left = '0'
+                    }
+                    
+                    
+                }
+
+                 /*防重复点击 end*/
+
+                //前一首
                 playPre.onclick = function(){
-                    songStop.className = '';
-                    ajax(opt)
+                    lockClick()
                 }
-                playNext.onclick = function(){
-                    songStop.className = '';
-                    ajax(opt)
+                // 下一首
+                playNext.onclick = function(){     
+                    lockClick()
                 }
+
                 // 点击上一曲和下一曲按钮样式改变
                 playNext.onmousedown = function(){
                     this.style.borderLeftColor = 'red'
@@ -145,15 +254,19 @@ define(function(){
                 // 获取歌曲
                 function loadMusic(objs){
                     music.src = objs.song[0].url
+                    
                 }
 
                 // 把拿到歌曲的相关信息赋值到Audio对象里
                 function render(objs){
-                    songTitle.innerText = objs.song[0].title;
-                    songAuthor.innerText = objs.song[0].artist;
-                    noTitle()   
+                    songTitle.innerHTML = objs.song[0].title;
+                    songAuthor.innerHTML = objs.song[0].artist;
+                    noTitle() 
+                     
                 }
                 function noTitle(){
+                    flag = false; 
+                    titleMove()
                     if(songTitle.innerText === ''){
                         songTitle.innerText = '音乐-学习的伙伴'
                     }
@@ -171,8 +284,10 @@ define(function(){
                 playDotNode.style.width = parseInt(percent*parseInt(progressNodeWidth))+'px';
                 seconds = seconds.length == 2 ? seconds : '0'+seconds
                 timeNode.innerText = minutes + ':' + seconds
-                }
 
+
+                }
+                
 
                 // 判断歌名和作者名所占的长度，如果超出了外框的长度，则就让它往左不停滚动
                 var index =0;

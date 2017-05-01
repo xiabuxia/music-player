@@ -1,45 +1,60 @@
 /* Welcome to Compass. Use this file to define print styles.
  * Import this file using the following HTML or equivalent:
  * <link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" /> */
-/* line 25, ../sass/print.scss */
+@keyframes move {
+  0% {
+    transform: rotateX(0deg);
+  }
+  30% {
+    transform: rotateX(10deg);
+  }
+  60% {
+    transform: rotateX(-5deg);
+  }
+  100% {
+    transform: rotateX(0deg);
+  }
+}
+/* line 32, ../sass/print.scss */
 body {
   background: #eee;
 }
 
-/* line 28, ../sass/print.scss */
+/* line 35, ../sass/print.scss */
 div, span {
   padding: 0;
   margin: 0;
 }
 
-/* line 32, ../sass/print.scss */
+/* line 39, ../sass/print.scss */
 ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* line 38, ../sass/print.scss */
+/* line 45, ../sass/print.scss */
 #pannel {
   width: 382px;
   height: 98px;
   border-style: solid;
   border-width: 2px;
   border-color: white;
-  border-radius: 20px;
+  border-radius: 20px 20px 20px 20px;
   background-image: -moz-linear-gradient(0deg, #c1b8b3 0%, #edeeee 100%);
   background-image: -webkit-linear-gradient(0deg, #c1b8b3 0%, #edeeee 100%);
   background-image: -ms-linear-gradient(0deg, #c1b8b3 0%, #edeeee 100%);
   box-shadow: 1px 12px 29px -7px rgba(0, 0, 0, 0.5);
+  perspective: 1200px;
 }
 
-/* line 50, ../sass/print.scss */
+/* line 58, ../sass/print.scss */
 #drag {
   width: 380px;
   height: 10px;
 }
 
-/* line 53, ../sass/print.scss */
+/* line 61, ../sass/print.scss */
 #song {
   width: 185px;
   height: 50px;
@@ -50,22 +65,73 @@ ul {
   cursor: default;
 }
 
-/* line 59, ../sass/print.scss */
+/* line 67, ../sass/print.scss */
 #song li {
   display: block;
   white-space: nowrap;
 }
 
-/* line 63, ../sass/print.scss */
+/* line 71, ../sass/print.scss */
 #information-ct {
   position: absolute;
   left: 0px;
   top: 0px;
 }
 
-/* line 67, ../sass/print.scss */
+/* line 75, ../sass/print.scss */
 #author {
   font-size: 12px;
   margin-top: 8px;
   margin-left: 10px;
+}
+
+/* line 81, ../sass/print.scss */
+#lrc-ct {
+  width: 370px;
+  height: 455px;
+  position: absolute;
+  left: 6px;
+  top: 119px;
+  border: 1px solid #ccc;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 1px 12px 29px -7px rgba(0, 0, 0, 0.5);
+  background-image: linear-gradient(0deg, #c1b8b3 0%, #edeeee 100%);
+  z-index: 9999;
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  transform-origin: top;
+  transition-duration: 1s;
+}
+/* line 93, ../sass/print.scss */
+#lrc-ct:hover {
+  transform: rotateX(-2deg);
+}
+
+/* line 98, ../sass/print.scss */
+.lrc {
+  width: 328px;
+  margin-top: 30px;
+  margin-left: 20px;
+}
+
+/* line 103, ../sass/print.scss */
+.line {
+  display: inline-block;
+  width: 8px;
+  height: 20px;
+  position: absolute;
+  left: 50px;
+  top: 55px;
+  border-left: 1px solid #847878;
+  border-right: 1px solid #847878;
+}
+
+/* line 110, ../sass/print.scss */
+#line-right {
+  left: 300px;
+}
+
+/* line 113, ../sass/print.scss */
+.showLrc {
+  display: none;
 }
